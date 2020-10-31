@@ -1,16 +1,26 @@
 # fluxo_caixa
 
-A new Flutter project.
+## Run project
 
-## Getting Started
+First, download all dependencies. In your terminal, run the command:
 
-This project is a starting point for a Flutter application.
+```
+# go to project
+cd <DIR>/<PROJECT>/fluxo_caixa
 
-A few resources to get you started if this is your first Flutter project:
+flutter pub get
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+In terminal, run your device. To check if your device is running, run the command:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+flutter devices
+```
+
+After, run the project:
+
+```
+flutter run
+```
+
+now be happy :partying_face:
