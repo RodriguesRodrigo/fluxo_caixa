@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "753949521004",
+    "firebase_url": "https://fluxo-caixa-am.firebaseio.com",
+    "project_id": "fluxo-caixa-am",
+    "storage_bucket": "fluxo-caixa-am.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753949521004:android:9b63b8f94fed5e99c4d449",
+        "android_client_info": {
+          "package_name": "com.example.fluxo_caixa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753949521004-bi7rm6d1g2o78lqkbve7hcbrdbfrdonn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyyl5mKnqE9ol0TP0BccdhlChw2PX6Z_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753949521004-bi7rm6d1g2o78lqkbve7hcbrdbfrdonn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
