@@ -2,25 +2,16 @@
 
 ## Run project
 
-First, download all dependencies. In your terminal, run the command:
+Rodando projeto:
+
+Caso você tenha instalado o Slidy, basta rodar o comando ```slidy run mobx_watch``` para instalar as dependências e iniciar o **mobx**. Se não tiver instalado o Slidy, basta você rodar os comandos abaixo:
 
 ```
-# go to project
-cd <DIR>/<PROJECT>/fluxo_caixa
-
+# Instala as dependências
 flutter pub get
+
+# Inicia o mobx
+flutter pub run build_runner watch --delete-conflicting-outputs
 ```
 
-In terminal, run your device. To check if your device is running, run the command:
-
-```
-flutter devices
-```
-
-After, run the project:
-
-```
-flutter run
-```
-
-now be happy :partying_face:
+Com o **mobx** iniciado, basta rodar seu emulador e rodar o projeto. Pra isso, abra o projeto no seu **vsCode**, aperte ```F5```, selecione o emulador (caso o emulador não esteja aberto) e aguarde a aplicação iniciar.
