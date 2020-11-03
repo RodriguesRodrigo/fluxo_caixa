@@ -44,20 +44,71 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             itemCount: list.length,
             itemBuilder: (_, index) {
             CashFlowModel model = list[index];
-              return CheckboxListTile(
+              return ListTile(
                 title: Text(model.title),
-                value: model.check,
-                onChanged: (check) {
-                  model.check = check;
-                });
+                onTap: () {
+                  _showDialog(model);
+                },
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.remove_circle,
+                    color: Colors.red,
+                  ),
+                  onPressed: model.delete,
+                ),
+                trailing: Checkbox(
+                  value: model.check,
+                  onChanged: (check) {
+                    model.check = check;
+                    model.save();
+                  },
+                ),
+              );
             },
         );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: _showDialog,
         child: Icon(Icons.add),
       ),
     );
   }
+
+  _showDialog([CashFlowModel model]) {
+    model ??= CashFlowModel();
+    
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(model.title.isEmpty ? 'Adicionar' : 'Atualizar'),
+          content: TextFormField(
+            initialValue: model.title,
+            onChanged: (value) => model.title = value,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Preencha o campo',
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Modular.to.pop();
+              },
+              child: Text('Cancelar'),
+            ),
+            FlatButton(
+              onPressed: () async {
+                await model.save();
+                Modular.to.pop();
+              },
+              child: Text('Salvar'),
+            ),
+          ],
+        );
+      }
+    );
+  }
+
 }
