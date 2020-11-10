@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
+import 'package:mobx/mobx.dart';
 
 class SplashPage extends StatefulWidget {
   final String title;
@@ -9,14 +12,37 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+
+  ReactionDisposer disposer;
+
+  @override
+  void initState() {
+    super.initState();
+    disposer = autorun((_) {
+      final auth = Modular.get<AuthController>();
+      if (auth.status == AuthStatus.login) {
+        Modular.to.pushReplacementNamed('/home');
+      }
+      else if (auth.status == AuthStatus.logoff) {
+          Modular.to.pushReplacementNamed('/login');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    disposer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        children: <Widget>[],
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
