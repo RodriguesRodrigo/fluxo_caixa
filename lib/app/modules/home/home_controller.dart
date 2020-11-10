@@ -1,4 +1,5 @@
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
+import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'repositories/cash_flow_repository_interface.dart';
@@ -20,5 +21,11 @@ abstract class _HomeControllerBase with Store {
   @action
   getList() {
     cashFlowList = repository.getCashFlow().asObservable();
+  }
+
+  @action
+  logoff() async {
+    await Modular.get<AuthController>().logOut();
+    Modular.to.pushReplacementNamed('/');
   }
 }

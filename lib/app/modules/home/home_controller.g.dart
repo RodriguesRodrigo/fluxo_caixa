@@ -24,6 +24,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$logoffAsyncAction = AsyncAction('_HomeControllerBase.logoff');
+
+  @override
+  Future logoff() {
+    return _$logoffAsyncAction.run(() => super.logoff());
+  }
+
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
 
