@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:753949521004:android:bde16065e56397bcc4d449",
+        "android_client_info": {
+          "package_name": "br.rod.fluxo_caixa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753949521004-rpvnpk00jso5iejv4g70pmeu8p1hlv27.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.rod.fluxo_caixa",
+            "certificate_hash": "78335e1093cb9e3ba98e37c2a760216978a3d7f4"
+          }
+        },
+        {
+          "client_id": "753949521004-bi7rm6d1g2o78lqkbve7hcbrdbfrdonn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyyl5mKnqE9ol0TP0BccdhlChw2PX6Z_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753949521004-bi7rm6d1g2o78lqkbve7hcbrdbfrdonn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:753949521004:android:9b63b8f94fed5e99c4d449",
         "android_client_info": {
           "package_name": "com.example.fluxo_caixa"
