@@ -11,10 +11,16 @@ abstract class _AuthControllerBase with Store {
   final IAuthRepository _authRepository = Modular.get();
 
   @observable
+  AuthStatus status = AuthStatus.loading;
+
+  @observable
   User user;
 
   @action
-  setUser(User value) => user = value;
+  setUser(User value) {
+    user = value;
+    status = user == null ? AuthStatus.logoff : AuthStatus.login;
+  }
 
   _AuthControllerBase() {
     _authRepository.getUser().then(setUser);
@@ -31,3 +37,5 @@ abstract class _AuthControllerBase with Store {
   }
 
 }
+
+enum AuthStatus { loading, login, logoff }
