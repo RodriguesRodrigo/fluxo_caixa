@@ -29,5 +29,6 @@ abstract class _LoginControllerBase with Store {
   @action
   Future loginWithFirebase() {
     print('parabéns, você apertou!');
+    Modular.to.pushReplacementNamed('/home');
   }
 }
