@@ -25,4 +25,9 @@ abstract class _LoginControllerBase with Store {
       loading = false;
     }
   }
+
+  @action
+  Future loginWithFirebase() {
+    print('parabéns, você apertou!');
+  }
 }

@@ -136,9 +136,7 @@ class LoginPageBody {
             borderRadius: BorderRadius.circular(4.0)
           ),
 
-          onPressed: () {
-            print('parabéns, você apertou!');
-          },
+          onPressed: controller.loginWithFirebase,
         ),
       ),
     );
