@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluxo_caixa/app/modules/login/components/login_page_body.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,17 +17,30 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          RaisedButton(
-            onPressed: controller.loginWithGoogle,
-            child: Text('Login with Google'),
-          )
-        ],
+      body: _formWidget(context),
+    );
+  }
+
+  _formWidget(BuildContext context) {
+    final LoginPageBody _body = LoginPageBody();
+
+    return Form(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _body.titleForm(),
+            new Padding(padding: const EdgeInsets.only(top: 16.0)),
+            _body.textFormFieldEmail(),
+            new Padding(padding: const EdgeInsets.only(top: 16.0)),
+            _body.textFormFieldPassword(),
+            new Padding(padding: const EdgeInsets.only(top: 16.0)),
+            _body.containerButton(context, controller),
+          ],
+        ),
       ),
     );
   }
+
 }
