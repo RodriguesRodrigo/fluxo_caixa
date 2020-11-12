@@ -8,9 +8,11 @@ class AuthRepository implements IAuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
-  Future getEmailPasswordLogin() {
-    // TODO: implement getEmailPasswordLogin
-    throw UnimplementedError();
+  Future getEmailPasswordLogin(email, password) async {
+    final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password
+    );
   }
 
   @override

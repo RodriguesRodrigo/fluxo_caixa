@@ -36,6 +36,11 @@ abstract class _AuthControllerBase with Store {
     return _authRepository.getLogout();
   }
 
+  @action
+  Future loginEmailPassword(email, password) async {
+    await _authRepository.getEmailPasswordLogin(email, password);
+  }
+
 }
 
 enum AuthStatus { loading, login, logoff }
