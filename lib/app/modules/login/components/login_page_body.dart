@@ -3,7 +3,10 @@ import 'package:fluxo_caixa/app/modules/login/login_controller.dart';
 
 class LoginPageBody {
 
-    titleForm() {
+  String email;
+  String password;
+
+  titleForm() {
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -63,6 +66,11 @@ class LoginPageBody {
           }
           return null;
         },
+
+        onChanged: (text) {
+          email = text;
+          print(email);
+        },
       ),
     );
   }
@@ -112,6 +120,11 @@ class LoginPageBody {
           }
           return null;
         },
+
+        onChanged: (text) {
+          password = text;
+          print(password);
+        },
       ),
     );
   }
@@ -136,10 +149,13 @@ class LoginPageBody {
             borderRadius: BorderRadius.circular(4.0)
           ),
 
-          onPressed: controller.loginWithFirebase,
+          onPressed: () async {
+            print(email);
+            print(password);
+            controller.loginWithFirebase(email, password);
+          },
         ),
       ),
     );
   }
-
 }
