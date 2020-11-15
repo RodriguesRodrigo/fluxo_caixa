@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
     }
     else if (auth.status == AuthStatus.logoff) {
       new Future.delayed(const Duration(seconds: 2), () {
-        Modular.to.pushReplacementNamed('/login');
+        Modular.to.pushReplacementNamed('/start');
       });
     }
   }
