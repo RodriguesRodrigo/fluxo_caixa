@@ -38,12 +38,25 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      backgroundColor: Colors.blue[600],
       body: Center(
-        child: CircularProgressIndicator(),
-      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(padding: EdgeInsets.only(bottom: 60.0)),
+            Icon(
+              Icons.attach_money,
+              color: Colors.white,
+              size: 120.0,
+              semanticLabel: 'Icone com o formato de cifrão'
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 60.0)),
+            CircularProgressIndicator(
+              backgroundColor: Colors.white,
+            )
+          ],
+        ),
+      )
     );
   }
 }
