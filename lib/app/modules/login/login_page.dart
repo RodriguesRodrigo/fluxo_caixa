@@ -40,6 +40,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             _body.textFormFieldPassword(),
             new Padding(padding: const EdgeInsets.only(top: 16.0)),
             _body.containerButton(context, controller),
+            new Padding(padding: const EdgeInsets.only(top: 16.0)),
+            _body.redirectCreateUser(),
           ],
         ),
       ),

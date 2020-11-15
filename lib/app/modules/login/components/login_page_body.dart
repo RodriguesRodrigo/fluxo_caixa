@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/login/login_controller.dart';
 
 class LoginPageBody {
@@ -155,6 +156,21 @@ class LoginPageBody {
             controller.loginWithFirebase(email, password);
           },
         ),
+      ),
+    );
+  }
+
+  redirectCreateUser() {
+    return Container(
+      child: InkWell(
+        child: Text(
+          'Não tenho uma conta. Cadastrar',
+          style: TextStyle(
+            color: Colors.blue[600],
+            fontSize: 16.0,
+          )
+        ),
+        onTap: () => Modular.to.pushReplacementNamed('/createUser'),
       ),
     );
   }
