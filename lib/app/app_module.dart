@@ -1,3 +1,4 @@
+import 'package:fluxo_caixa/app/modules/create_user/create_user_module.dart';
 import 'package:fluxo_caixa/app/modules/login/login_module.dart';
 import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 import 'package:fluxo_caixa/app/shared/auth/repositories/auth_repository_interface.dart';
@@ -27,6 +28,7 @@ class AppModule extends MainModule {
           module: LoginModule(),
           transition: TransitionType.noTransition,
         ),
+        ModularRouter('/createUser', module: CreateUserModule()),
         ModularRouter('/home', module: HomeModule()),
       ];
 
