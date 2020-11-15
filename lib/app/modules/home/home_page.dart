@@ -19,11 +19,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.highlight_off),
-          onPressed: controller.logoff,
-        ),
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: controller.logoff,
+          ),
+        ],
       ),
       body: Observer(
         builder: (_) {
