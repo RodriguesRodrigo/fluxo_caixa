@@ -18,15 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    disposer = autorun((_) {
-      final auth = Modular.get<AuthController>();
-      if (auth.status == AuthStatus.login) {
-        Modular.to.pushReplacementNamed('/home');
-      }
-      else if (auth.status == AuthStatus.logoff) {
-          Modular.to.pushReplacementNamed('/login');
-      }
-    });
+    disposer = autorun((_) => _autoRedirect());
   }
 
   @override
@@ -58,5 +50,19 @@ class _SplashPageState extends State<SplashPage> {
         ),
       )
     );
+  }
+
+  _autoRedirect() {
+    final auth = Modular.get<AuthController>();
+    if (auth.status == AuthStatus.login) {
+      new Future.delayed(const Duration(seconds: 2), () {
+        Modular.to.pushReplacementNamed('/home');
+      });
+    }
+    else if (auth.status == AuthStatus.logoff) {
+      new Future.delayed(const Duration(seconds: 2), () {
+        Modular.to.pushReplacementNamed('/login');
+      });
+    }
   }
 }
