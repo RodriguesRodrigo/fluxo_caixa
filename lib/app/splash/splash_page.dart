@@ -18,15 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    disposer = autorun((_) {
-      final auth = Modular.get<AuthController>();
-      if (auth.status == AuthStatus.login) {
-        Modular.to.pushReplacementNamed('/home');
-      }
-      else if (auth.status == AuthStatus.logoff) {
-          Modular.to.pushReplacementNamed('/login');
-      }
-    });
+    disposer = autorun((_) => _autoRedirect());
   }
 
   @override
@@ -38,12 +30,39 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      backgroundColor: Colors.blue[600],
       body: Center(
-        child: CircularProgressIndicator(),
-      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(padding: EdgeInsets.only(bottom: 60.0)),
+            Icon(
+              Icons.attach_money,
+              color: Colors.white,
+              size: 120.0,
+              semanticLabel: 'Icone com o formato de cifrão'
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 60.0)),
+            CircularProgressIndicator(
+              backgroundColor: Colors.white,
+            )
+          ],
+        ),
+      )
     );
+  }
+
+  _autoRedirect() {
+    final auth = Modular.get<AuthController>();
+    if (auth.status == AuthStatus.login) {
+      new Future.delayed(const Duration(seconds: 2), () {
+        Modular.to.pushReplacementNamed('/home');
+      });
+    }
+    else if (auth.status == AuthStatus.logoff) {
+      new Future.delayed(const Duration(seconds: 2), () {
+        Modular.to.pushReplacementNamed('/start');
+      });
+    }
   }
 }
