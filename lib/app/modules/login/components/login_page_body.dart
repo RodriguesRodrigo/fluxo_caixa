@@ -70,7 +70,6 @@ class LoginPageBody {
 
         onChanged: (text) {
           email = text;
-          print(email);
         },
       ),
     );
@@ -124,7 +123,6 @@ class LoginPageBody {
 
         onChanged: (text) {
           password = text;
-          print(password);
         },
       ),
     );
@@ -151,8 +149,6 @@ class LoginPageBody {
           ),
 
           onPressed: () async {
-            print(email);
-            print(password);
             controller.loginWithFirebase(email, password);
           },
         ),
