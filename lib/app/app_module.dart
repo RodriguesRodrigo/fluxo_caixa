@@ -4,6 +4,7 @@ import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 import 'package:fluxo_caixa/app/shared/auth/repositories/auth_repository_interface.dart';
 import 'package:fluxo_caixa/app/shared/auth/repositories/auth_repository.dart';
 import 'package:fluxo_caixa/app/splash/splash_page.dart';
+import 'package:fluxo_caixa/app/start/start_page.dart';
 
 import 'app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -23,6 +24,7 @@ class AppModule extends MainModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter('/', child: (_, args) => SplashPage()),
+        ModularRouter('/start', child: (_, args) => StartPage()),
         ModularRouter(
           '/login',
           module: LoginModule(),
