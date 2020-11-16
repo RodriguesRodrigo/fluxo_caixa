@@ -26,53 +26,31 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             onPressed: controller.logoff,
           ),
         ],
+        elevation: 0,
+        backgroundColor: Colors.blue[600],
       ),
-      body: Observer(
-        builder: (_) {
-          if (controller.cashFlowList.hasError) {
-            return Center(
-              child: RaisedButton(
-                onPressed: controller.getList(),
-                child: Text('Ops...'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          _header(),
+          Padding(padding: EdgeInsets.only(bottom: 32.0)),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Últimas transações',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.left,
               ),
-            );
-          }
-
-          if (controller.cashFlowList == null) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          List<CashFlowModel> list = controller.cashFlowList.data;
-
-          return ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (_, index) {
-            CashFlowModel model = list[index];
-              return ListTile(
-                title: Text(model.title),
-                onTap: () {
-                  _showDialog(model);
-                },
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.remove_circle,
-                    color: Colors.red,
-                  ),
-                  onPressed: model.delete,
-                ),
-                trailing: Checkbox(
-                  value: model.check,
-                  onChanged: (check) {
-                    model.check = check;
-                    model.save();
-                  },
-                ),
-              );
-            },
-        );
-        },
+            ),
+          ),
+          _sectionObserver(),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showDialog,
@@ -114,6 +92,121 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           ],
         );
       }
+    );
+  }
+
+  _header() {
+    return Container(
+      width: double.infinity,
+      height: 160,
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(8.0)),
+        color: Colors.blue[600],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Text(
+                'Saldo Atual',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'R10.000,00',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 46.0,
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.remove_red_eye_outlined,
+                  color: Colors.white,
+                ),
+                iconSize: 36.0,
+                onPressed: () => null,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  _sectionObserver() {
+    return Observer(
+      builder: (_) {
+        if (controller.cashFlowList.data == null) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        List<CashFlowModel> list = controller.cashFlowList.data;
+
+        return Expanded(
+          child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (_, index) {
+            CashFlowModel model = list[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4.0,
+                  horizontal: 8.0,
+                ),
+
+                child: ListTile(
+                  tileColor: Colors.grey[200],
+
+                  leading: Container(
+                    child: Icon(
+                      Icons.done_all_sharp,
+                      color: Colors.white,
+                    ),
+                    padding: EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.green,
+                    ),
+                  ),
+
+                  title: Text(
+                    model.title,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    ),
+                  ),
+
+                  trailing: Text(
+                    'RS 2.000',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  onTap: () {
+                    _showDialog(model);
+                  },
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 
