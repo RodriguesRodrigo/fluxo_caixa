@@ -19,7 +19,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(controller.auth.user.email),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -66,14 +66,50 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       context: context,
       builder: (_) {
         return AlertDialog(
-          title: Text(model.title.isEmpty ? 'Adicionar' : 'Atualizar'),
-          content: TextFormField(
-            initialValue: model.title,
-            onChanged: (value) => model.title = value,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Preencha o campo',
-            ),
+          title: Text(model.description.isEmpty ? 'Adicionar' : 'Atualizar'),
+          content: ListView(
+            children: <Widget>[
+              TextFormField(
+                initialValue: model.description,
+                onChanged: (value) => model.description = value,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Preencha o campo',
+                ),
+              ),
+              TextFormField(
+                initialValue: model.observation,
+                onChanged: (value) => model.observation = value,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Preencha o campo',
+                ),
+              ),
+              TextFormField(
+                initialValue: model.value,
+                onChanged: (value) => model.value = value,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Preencha o campo',
+                ),
+              ),
+              TextFormField(
+                initialValue: model.paymentType,
+                onChanged: (value) => model.paymentType = value,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Preencha o campo',
+                ),
+              ),
+              TextFormField(
+                initialValue: model.type,
+                onChanged: (value) => model.type = value,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Preencha o campo',
+                ),
+              ),
+            ],
           ),
           actions: <Widget>[
             FlatButton(
@@ -171,18 +207,21 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
                   leading: Container(
                     child: Icon(
-                      Icons.done_all_sharp,
+                      model.type.toLowerCase() == 'entrada' ?
+                      Icons.trending_up_sharp:
+                      Icons.trending_down_sharp,
                       color: Colors.white,
                     ),
                     padding: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: Colors.green,
+                      color: model.type.toLowerCase() == 'entrada' ?
+                        Colors.green : Colors.red,
                     ),
                   ),
 
                   title: Text(
-                    model.title,
+                    model.description,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 18.0,
@@ -190,9 +229,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   ),
 
                   trailing: Text(
-                    'RS 2.000',
+                    model.value,
                     style: TextStyle(
-                      color: Colors.green,
+                      color: model.type.toLowerCase() == 'entrada' ?
+                        Colors.green : Colors.red,
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
