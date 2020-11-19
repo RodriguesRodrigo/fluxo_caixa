@@ -229,7 +229,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   ),
 
                   trailing: Text(
-                    model.value,
+                    r'R$ ' + model.value,
                     style: TextStyle(
                       color: model.type.toLowerCase() == 'entrada' ?
                         Colors.green : Colors.red,
