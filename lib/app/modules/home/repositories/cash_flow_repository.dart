@@ -9,11 +9,11 @@ class CashFlowRepository implements ICashFlowRepository {
   CashFlowRepository(this.firestore);
 
   @override
-  Stream<List<CashFlowModel>> getCashFlow() {
+  Stream<List<CashFlowModel>> getCashFlow(String userName) {
     // TODO:
     // Order by date
     // firestore.collection('cash_flux').orderBy(<FIELD>)
-    return firestore.collection('cash_flux').snapshots().map((query) {
+    return firestore.collection('cash_flux').where('userName', isEqualTo: userName).snapshots().map((query) {
       return query.docs.map((doc) {
         return CashFlowModel.fromDocument(doc);
       }).toList();
