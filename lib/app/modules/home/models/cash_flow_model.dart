@@ -3,8 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 
 class CashFlowModel {
-  // TODO:
-  // Order by date
 
   AuthController auth = Modular.get();
 
