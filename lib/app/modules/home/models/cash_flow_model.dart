@@ -75,7 +75,6 @@ class CashFlowModel {
         'userName': userName,
       });
     }
-    print('não salvei hue');
   }
 
   Future delete() {
