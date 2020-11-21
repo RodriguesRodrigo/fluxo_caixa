@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class EditFluxPage extends StatefulWidget {
+class CreateFluxPage extends StatefulWidget {
   final String title;
-  const EditFluxPage({Key key, this.title = "Edit"}) : super(key: key);
+  const CreateFluxPage({Key key, this.title = "CreateFlux"}) : super(key: key);
 
   @override
-  _EditFluxPageState createState() => _EditFluxPageState();
+  _CreateFluxPageState createState() => _CreateFluxPageState();
 }
 
-class _EditFluxPageState extends State<EditFluxPage> {
+class _CreateFluxPageState extends State<CreateFluxPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
