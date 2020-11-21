@@ -1,4 +1,6 @@
 import 'package:fluxo_caixa/app/modules/create_user/create_user_module.dart';
+import 'package:fluxo_caixa/app/modules/home/views/detail_flux/detail_flux_page.dart';
+import 'package:fluxo_caixa/app/modules/home/views/edit_flux/edit_flux_page.dart';
 import 'package:fluxo_caixa/app/modules/login/login_module.dart';
 import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 import 'package:fluxo_caixa/app/shared/auth/repositories/auth_repository_interface.dart';
@@ -24,6 +26,7 @@ class AppModule extends MainModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter('/', child: (_, args) => SplashPage()),
+
         ModularRouter('/start', child: (_, args) => StartPage()),
         ModularRouter(
           '/login',
@@ -31,7 +34,10 @@ class AppModule extends MainModule {
           transition: TransitionType.noTransition,
         ),
         ModularRouter('/createUser', module: CreateUserModule()),
+
         ModularRouter('/home', module: HomeModule()),
+        ModularRouter('/editFlux', child: (_, args) => EditFluxPage()),
+        ModularRouter('/detailFlux', child: (_, args) => DetailFluxPage()),
       ];
 
   @override
