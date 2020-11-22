@@ -3,11 +3,11 @@ import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/money_transaction_model.dart';
 import 'package:fluxo_caixa/app/modules/home/repositories/firestore_repository_interface.dart';
 
-class CashFlowRepository implements IFirestoreRepository {
+class FirestoreRepository implements IFirestoreRepository {
 
   final FirebaseFirestore firestore;
 
-  CashFlowRepository(this.firestore);
+  FirestoreRepository(this.firestore);
 
   @override
   Stream<List<CashFlowModel>> getCashFlow(String userName) {
