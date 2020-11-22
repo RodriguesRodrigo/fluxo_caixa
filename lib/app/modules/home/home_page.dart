@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
+import 'package:fluxo_caixa/app/modules/home/models/money_transaction_model.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -60,51 +61,70 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 
   _header() {
-    return Container(
-      width: double.infinity,
-      height: 160,
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(8.0)),
-        color: Colors.blue[600],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Text(
-                'Saldo Atual',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.white,
-                ),
-              )
-            ],
+    return Observer(
+      builder: (_) {
+        if (controller.moneyTransactionList.data == null) {
+          return Container(
+            height: 100,
+            width: 100,
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (controller.moneyTransactionList.hasError) {
+          print(controller.moneyTransactionList.error);
+        }
+
+        List<MoneyTransactionModel> list = controller.moneyTransactionList.data;
+
+        return Container(
+          width: double.infinity,
+          height: 160,
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(8.0)),
+            color: Colors.blue[600],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'R10.000,00',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 46.0,
-                ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    'Saldo Atual',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.remove_red_eye_outlined,
-                  color: Colors.white,
-                ),
-                iconSize: 36.0,
-                onPressed: () => null,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    r'R$' + list[0].value,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 46.0,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.remove_red_eye_outlined,
+                      color: Colors.white,
+                    ),
+                    iconSize: 36.0,
+                    onPressed: () => null,
+                  ),
+                ],
               ),
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 
