@@ -36,7 +36,7 @@ class AppModule extends MainModule {
         ModularRouter('/createUser', module: CreateUserModule()),
 
         ModularRouter('/home', module: HomeModule()),
-        ModularRouter('/editFlux', child: (_, args) => CreateFluxPage()),
+        ModularRouter('/createFlux', child: (_, args) => CreateFluxPage()),
         ModularRouter('/detailFlux', child: (_, args) => DetailFluxPage()),
       ];
 
