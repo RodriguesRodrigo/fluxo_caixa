@@ -10,7 +10,7 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final IFirestoreRepository cashFlowRepository;
+  final IFirestoreRepository firestoreRepository;
 
   AuthController auth = Modular.get();
 
@@ -20,14 +20,14 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableStream<List<MoneyTransactionModel>> moneyTransactionList;
  
-  _HomeControllerBase(IFirestoreRepository this.cashFlowRepository) {
+  _HomeControllerBase(IFirestoreRepository this.firestoreRepository) {
     getList();
   }
 
   @action
   getList() {
-    cashFlowList = cashFlowRepository.getCashFlow(auth.user.email).asObservable();
-    moneyTransactionList = cashFlowRepository.getMoney(auth.user.email).asObservable();
+    cashFlowList = firestoreRepository.getCashFlow(auth.user.email).asObservable();
+    moneyTransactionList = firestoreRepository.getMoney(auth.user.email).asObservable();
   }
 
   @action
