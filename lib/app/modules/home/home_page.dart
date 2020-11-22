@@ -53,7 +53,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showDialog,
+        onPressed: () => Modular.to.pushReplacementNamed('/createFlux'),
         child: Icon(Icons.add),
       ),
     );
