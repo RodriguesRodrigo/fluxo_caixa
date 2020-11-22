@@ -5,15 +5,15 @@ import 'package:fluxo_caixa/app/modules/home/repositories/cash_flow_repository_i
 class CashFlowRepository implements ICashFlowRepository {
 
   final FirebaseFirestore firestore;
-  
+
   CashFlowRepository(this.firestore);
 
   @override
-  Stream<List<CashFlowModel>> getCashFlow() {
-    // TODO:
-    // Order by date
-    // firestore.collection('cash_flux').orderBy(<FIELD>)
-    return firestore.collection('cash_flux').snapshots().map((query) {
+  Stream<List<CashFlowModel>> getCashFlow(String userName) {
+    return firestore.collection('cash_flux')
+      .where('userName', isEqualTo: userName)
+      .orderBy('paymentDate', descending: true)
+      .snapshots().map((query) {
       return query.docs.map((doc) {
         return CashFlowModel.fromDocument(doc);
       }).toList();
