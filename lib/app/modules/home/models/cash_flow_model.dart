@@ -12,8 +12,8 @@ class CashFlowModel {
   String type;
   String paymentType;
   String value;
+  String paymentDate;
   Timestamp createdAt;
-  Timestamp paymentDate;
   DocumentReference reference;
 
   CashFlowModel({
@@ -23,8 +23,8 @@ class CashFlowModel {
     this.type = '',
     this.paymentType = '',
     this.value = '',
+    this.paymentDate = '',
     this.createdAt,
-    this.paymentDate,
     this.reference
   });
 
@@ -48,7 +48,6 @@ class CashFlowModel {
     if (reference == null) {
 
       createdAt = new Timestamp.now() ?? createdAt == null;
-      paymentDate = new Timestamp.now() ?? paymentDate == null;
 
       reference = await FirebaseFirestore.instance
         .collection('cash_flux')
