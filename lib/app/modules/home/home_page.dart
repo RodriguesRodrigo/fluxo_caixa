@@ -239,7 +239,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   ),
 
                   onTap: () {
-                    _showDialog(model);
+                    Modular.to.pushReplacementNamed(
+                      '/detailFlux',
+                      arguments: index
+                    );
                   },
                 ),
               );
