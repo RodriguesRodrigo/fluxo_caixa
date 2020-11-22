@@ -24,6 +24,24 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$moneyTransactionListAtom =
+      Atom(name: '_HomeControllerBase.moneyTransactionList');
+
+  @override
+  ObservableStream<List<MoneyTransactionModel>> get moneyTransactionList {
+    _$moneyTransactionListAtom.reportRead();
+    return super.moneyTransactionList;
+  }
+
+  @override
+  set moneyTransactionList(
+      ObservableStream<List<MoneyTransactionModel>> value) {
+    _$moneyTransactionListAtom.reportWrite(value, super.moneyTransactionList,
+        () {
+      super.moneyTransactionList = value;
+    });
+  }
+
   final _$logoffAsyncAction = AsyncAction('_HomeControllerBase.logoff');
 
   @override
@@ -48,7 +66,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-cashFlowList: ${cashFlowList}
+cashFlowList: ${cashFlowList},
+moneyTransactionList: ${moneyTransactionList}
     ''';
   }
 }
