@@ -43,6 +43,23 @@ class MoneyTransactionModel {
     }
   }
 
+  changeValue(String type, String valueCalc) {
+    double money = 00.0;
+
+    double account = double.parse(value.replaceAll(',', '.'));
+    double price = double.parse(valueCalc.replaceAll(',', '.'));
+
+    if (type.toLowerCase() == 'entrada') {
+      money = account + price;
+    }
+    else {
+      money = account - price;
+    }
+
+    value = money.toString();
+    this.save();
+  }
+
   Future delete() {
     return reference.delete();
   }

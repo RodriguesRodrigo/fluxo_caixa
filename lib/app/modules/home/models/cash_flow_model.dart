@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluxo_caixa/app/modules/home/models/money_transaction_model.dart';
 import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 
 class CashFlowModel {
 
   AuthController auth = Modular.get();
+  FirebaseFirestore instanceMoney = FirebaseFirestore.instance;
 
   String userName;
   String description;
@@ -42,8 +44,10 @@ class CashFlowModel {
     );
   }
 
-  Future save() async {
+  Future save(MoneyTransactionModel moneyModel) async {
     userName = auth.user.email;
+
+    moneyModel.changeValue(type, value);
 
     if (reference == null) {
 
