@@ -14,6 +14,7 @@ class CashFlowModel {
   String type;
   String paymentType;
   String value;
+  String valueCached;
   String paymentDate;
   Timestamp createdAt;
   DocumentReference reference;
@@ -25,6 +26,7 @@ class CashFlowModel {
     this.type = '',
     this.paymentType = '',
     this.value = '',
+    this.valueCached = '',
     this.paymentDate = '',
     this.createdAt,
     this.reference
@@ -38,6 +40,7 @@ class CashFlowModel {
       type: doc['type'],
       paymentType: doc['paymentType'],
       value: doc['value'],
+      valueCached: doc['valueCached'],
       createdAt: doc['createdAt'],
       paymentDate: doc['paymentDate'],
       reference: doc.reference
@@ -47,9 +50,8 @@ class CashFlowModel {
   Future save(MoneyTransactionModel moneyModel) async {
     userName = auth.user.email;
 
-    moneyModel.changeValue(type, value);
-
     if (reference == null) {
+      moneyModel.changeValue(type, value);
 
       createdAt = new Timestamp.now() ?? createdAt == null;
 
@@ -59,6 +61,7 @@ class CashFlowModel {
           'description': description,
           'observation': observation,
           'value': value,
+          'valueCached': value,
           'type': type,
           'paymentType': paymentType,
           'createdAt': createdAt,
@@ -67,10 +70,13 @@ class CashFlowModel {
         });
     }
     else {
+      moneyModel.changeValue(type, value, valueCached);
+
       reference.update({
         'description': description,
         'observation': observation,
         'value': value,
+        'valueCached': value,
         'type': type,
         'paymentType': paymentType,
         'createdAt': createdAt,
