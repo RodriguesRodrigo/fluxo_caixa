@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/money_transaction_model.dart';
+import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
+  MoneyTransactionModel moneyModel = MoneyTransactionModel();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Modular.to.pushReplacementNamed('/createFlux'),
+        onPressed: () => Modular.to.pushReplacementNamed(
+          '/createFlux',
+          arguments: ScreenArguments(0, moneyModel)
+        ),
         child: Icon(Icons.add),
       ),
     );
@@ -76,6 +81,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         }
 
         List<MoneyTransactionModel> list = controller.moneyTransactionList.data;
+        moneyModel = list[0];
 
         return Container(
           width: double.infinity,
@@ -189,7 +195,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   onTap: () {
                     Modular.to.pushReplacementNamed(
                       '/detailFlux',
-                      arguments: index
+                      arguments: ScreenArguments(index, moneyModel)
                     );
                   },
                 ),
