@@ -50,9 +50,9 @@ class CashFlowModel {
   Future save(MoneyTransactionModel moneyModel) async {
     userName = auth.user.email;
 
-    if (reference == null) {
-      moneyModel.changeValue(type, value);
+    moneyModel.changeValue(this, false);
 
+    if (reference == null) {
       createdAt = new Timestamp.now() ?? createdAt == null;
 
       reference = await FirebaseFirestore.instance
@@ -70,8 +70,6 @@ class CashFlowModel {
         });
     }
     else {
-      moneyModel.changeValue(type, value, valueCached);
-
       reference.update({
         'description': description,
         'observation': observation,
@@ -86,7 +84,8 @@ class CashFlowModel {
     }
   }
 
-  Future delete() {
+  Future delete(MoneyTransactionModel moneyModel) {
+    moneyModel.changeValue(this, true);
     return reference.delete();
   }
 }

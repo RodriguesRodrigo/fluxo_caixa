@@ -66,7 +66,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  model.delete();
+                  model.delete(args.moneyModel);
                   Modular.to.pushReplacementNamed('/home');
                 },
               ),
