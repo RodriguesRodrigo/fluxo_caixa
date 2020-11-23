@@ -43,11 +43,17 @@ class MoneyTransactionModel {
     }
   }
 
-  changeValue(String type, String valueCalc) {
+  changeValue(String type, String valueCalc, [String oldValue]) {
     double money = 00.0;
 
     double account = double.parse(value.replaceAll(',', '.'));
     double price = double.parse(valueCalc.replaceAll(',', '.'));
+
+    if (oldValue != null) {
+      double oldPrice = double.parse(oldValue.replaceAll(',', '.'));
+      account = type.toLowerCase() == 'entrada' ?
+        account - oldPrice : account + oldPrice;
+    }
 
     if (type.toLowerCase() == 'entrada') {
       money = account + price;
