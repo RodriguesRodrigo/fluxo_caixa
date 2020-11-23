@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
+import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
 
 class CreateFluxPage extends StatefulWidget {
   final String title;
@@ -20,8 +21,12 @@ class _CreateFluxPageState extends State<CreateFluxPage> {
   String typeInitial = 'Entrada';
   List<String> typeChoices = ['Entrada', 'Saída'];
 
+  ScreenArguments args;
+
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -332,7 +337,7 @@ class _CreateFluxPageState extends State<CreateFluxPage> {
 
     if (form.validate()) {
       print('está certo');
-      model.save();
+      model.save(args.moneyModel);
       Modular.to.pushReplacementNamed('/home');
     }
     else {

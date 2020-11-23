@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/home/home_controller.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
+import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
 
 class DetailFluxPage extends StatefulWidget {
   final String title;
@@ -18,6 +19,8 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
 
   bool showCircularProgress = false;
 
+  ScreenArguments args;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -29,7 +32,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
 
   @override
   Widget build(BuildContext context) {
-    int index = ModalRoute.of(context).settings.arguments;
+    args = ModalRoute.of(context).settings.arguments;
 
     return Observer(
       builder: (_) {
@@ -39,7 +42,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
           );
         }
 
-        CashFlowModel model = controller.cashFlowList.data[index];
+        CashFlowModel model = controller.cashFlowList.data[args.index];
 
         return Scaffold(
           appBar: AppBar(
@@ -394,7 +397,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await model.save(args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -426,7 +429,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await model.save(args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -477,7 +480,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await model.save(args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -509,7 +512,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await model.save(args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -543,7 +546,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await model.save(args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
