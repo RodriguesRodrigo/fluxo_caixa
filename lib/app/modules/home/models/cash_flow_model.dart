@@ -47,10 +47,8 @@ class CashFlowModel {
     );
   }
 
-  Future save(MoneyTransactionModel moneyModel) async {
+  Future save() async {
     userName = auth.user.email;
-
-    moneyModel.changeValue(this, false);
 
     if (reference == null) {
       createdAt = new Timestamp.now() ?? createdAt == null;
@@ -85,7 +83,6 @@ class CashFlowModel {
   }
 
   Future delete(MoneyTransactionModel moneyModel) {
-    moneyModel.changeValue(this, true);
     return reference.delete();
   }
 }

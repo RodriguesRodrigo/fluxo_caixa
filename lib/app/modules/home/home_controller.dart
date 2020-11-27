@@ -35,4 +35,50 @@ abstract class _HomeControllerBase with Store {
     await Modular.get<AuthController>().logOut();
     Modular.to.pushReplacementNamed('/login');
   }
+
+  createCashFlow(CashFlowModel modelCashFlow, MoneyTransactionModel modelMoney) async {
+    int money = 0;
+    int account = int.parse(modelMoney.value);
+    int price = int.parse(modelCashFlow.value);
+
+    money = modelCashFlow.type.toLowerCase() == 'entrada' ?
+        account + price : account - price;
+
+    modelMoney.value = money.toString();
+    modelMoney.save();
+
+    modelCashFlow.save();
+  }
+
+  updateCashFlow(CashFlowModel modelCashFlow, MoneyTransactionModel modelMoney) async {
+    int money = 0;
+    int account = int.parse(modelMoney.value);
+    int price = int.parse(modelCashFlow.value);
+    int oldPrice = int.parse(modelCashFlow.valueCached);
+
+    account = modelCashFlow.type.toLowerCase() == 'entrada' ?
+      account - oldPrice : account + oldPrice;
+
+    money = modelCashFlow.type.toLowerCase() == 'entrada' ?
+        account + price : account - price;
+
+    modelMoney.value = money.toString();
+    modelMoney.save();
+
+    modelCashFlow.save();
+  }
+
+  deleteCashFlow(CashFlowModel modelCashFlow, MoneyTransactionModel modelMoney) async {
+    int money = 0;
+    int account = int.parse(modelMoney.value);
+    int price = int.parse(modelCashFlow.value);
+
+    money = modelCashFlow.type.toLowerCase() == 'entrada' ?
+        account - price : account + price;
+
+    modelMoney.value = money.toString();
+    modelMoney.save();
+
+    modelCashFlow.save();
+  }
 }
