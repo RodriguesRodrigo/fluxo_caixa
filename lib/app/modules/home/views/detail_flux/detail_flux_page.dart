@@ -25,15 +25,6 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
   final brl = Currency.create('BRL', 2, symbol: r'R$', invertSeparators: true);
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (controller.cashFlowList.data == null) {
-      showCircularProgress = true;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context).settings.arguments;
 
