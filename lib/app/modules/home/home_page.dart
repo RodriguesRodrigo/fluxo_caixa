@@ -5,6 +5,7 @@ import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/money_transaction_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
 import 'home_controller.dart';
+import 'package:money2/money2.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
   MoneyTransactionModel moneyModel = MoneyTransactionModel();
+  final brl = Currency.create('BRL', 2, symbol: r'R$', invertSeparators: true);
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         List<MoneyTransactionModel> list = controller.moneyTransactionList.data;
         moneyModel = list[0];
 
+        var costPrice = Money.fromInt(int.parse(list[0].value), brl);
+        var money = costPrice.format('S #.###,##');
+
         return Container(
           width: double.infinity,
           height: 160,
@@ -111,10 +116,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    r'R$' + list[0].value,
+                    money.toString(),
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 46.0,
+                      fontSize: 38.0,
                     ),
                   ),
                   IconButton(
@@ -149,7 +154,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           child: ListView.builder(
             itemCount: list.length,
             itemBuilder: (_, index) {
-            CashFlowModel model = list[index];
+              CashFlowModel model = list[index];
+
+              var costPrice = Money.fromInt(int.parse(model.value), brl);
+              var money = costPrice.format('S #.###,##');
+
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 4.0,
@@ -183,7 +192,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   ),
 
                   trailing: Text(
-                    r'R$ ' + model.value,
+                    money.toString(),
                     style: TextStyle(
                       color: model.type.toLowerCase() == 'entrada' ?
                         Colors.green : Colors.red,

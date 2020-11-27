@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/home/home_controller.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
+import 'package:money2/money2.dart';
 
 class DetailFluxPage extends StatefulWidget {
   final String title;
@@ -20,6 +21,8 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
   bool showCircularProgress = false;
 
   ScreenArguments args;
+
+  final brl = Currency.create('BRL', 2, symbol: r'R$', invertSeparators: true);
 
   @override
   void initState() {
@@ -65,8 +68,8 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
                   Icons.delete_forever,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  model.delete(args.moneyModel);
+                onPressed: () async {
+                  await controller.deleteCashFlow(model, args.moneyModel);
                   Modular.to.pushReplacementNamed('/home');
                 },
               ),
@@ -90,6 +93,9 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
   }
 
   _header(CashFlowModel model) {
+    var costPrice = Money.fromInt(int.parse(model.value), brl);
+    var money = costPrice.format('S #.###,##');
+
     return Container(
       width: double.infinity,
       height: 120,
@@ -107,15 +113,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                r'R$',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 38.0,
-                ),
-              ),
-              Padding(padding: EdgeInsets.only(right: 8.0)),
-              Text(
-                model.value,
+                money.toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 38.0,
@@ -397,7 +395,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save(args.moneyModel);
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -429,7 +427,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save(args.moneyModel);
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -480,7 +478,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save(args.moneyModel);
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -512,7 +510,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save(args.moneyModel);
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -546,7 +544,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save(args.moneyModel);
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
