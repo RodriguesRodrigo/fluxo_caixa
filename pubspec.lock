@@ -251,6 +251,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_masked_text:
+    dependency: "direct main"
+    description:
+      name: flutter_masked_text
+      url: "https://dartlang-pub-dev.appspot.com/"
+    source: hosted
+    version: "0.8.0"
   flutter_mobx:
     dependency: "direct main"
     description:
