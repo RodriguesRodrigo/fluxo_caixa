@@ -61,12 +61,9 @@ class LoginPageBody {
           ),
         ),
 
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Por favor, informe seu usuário';
-          }
-          return null;
-        },
+        validator: (value) => value.isEmpty ?
+          'Por favor, informe seu usuário.' :
+          null,
 
         onChanged: (text) {
           email = text;
@@ -114,12 +111,9 @@ class LoginPageBody {
           ),
         ),
 
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Por favor, informe seu usuário';
-          }
-          return null;
-        },
+        validator: (value) => value.isEmpty ?
+          'Por favor, informe sua senha' :
+          null,
 
         onChanged: (text) {
           password = text;
