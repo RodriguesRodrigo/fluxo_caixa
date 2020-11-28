@@ -32,8 +32,6 @@ class AuthRepository implements IAuthRepository {
     );
 
     final User user = (await _auth.signInWithCredential(credential)).user;
-    print('signed in ' + user.displayName);
-
     return user;
   }
 
