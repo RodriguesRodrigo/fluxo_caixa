@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/login/login_controller.dart';
@@ -143,7 +144,7 @@ class LoginPageBody {
           ),
 
           onPressed: () async {
-            controller.loginWithFirebase(email, password);
+            loginWithFirebase(email, password, controller, context);
           },
         ),
       ),
@@ -164,4 +165,62 @@ class LoginPageBody {
       ),
     );
   }
+
+  Future loginWithFirebase(email, password, controller, BuildContext context) async {
+    try {
+      await controller.auth.loginEmailPassword(email, password);
+      Modular.to.pushReplacementNamed('/home');
+    }
+    on FirebaseAuthException catch(e) {
+      if (e.code == 'user-not-found') {
+        _showDialog(
+          context,
+          'Usuário não encontrado',
+          'Não encontramos este usuário, por favor verifique se o usuário está correto e tente novamente.',
+        );
+      }
+      else if (e.code == 'wrong-password') {
+        _showDialog(
+          context,
+          'Senha incorreta',
+          'Sua senha está incorreta, por favor verifique se a senha está correta e tente novamente.',
+        );
+      }
+      else {
+        _showDialog(
+          context,
+          'Ops',
+          'Estamos com alguns problemas tecnicos, tente novamente mais tarde.',
+        );
+      }
+      print("[LOGIN][FIREBASE AUTH EXCEPTION]" + e.code);
+    }
+    catch(e) {
+      _showDialog(
+        context,
+        'Ops',
+        'Estamos com alguns problemas tecnicos, tente novamente mais tarde.',
+      );
+      print("[LOGIN][EXCEPTION]" + e.code);
+    }
+  }
+
+  _showDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Modular.to.pop(),
+              child: Text('Fechar'),
+            ),
+          ],
+        );
+      }
+    );
+  }
+
 }
