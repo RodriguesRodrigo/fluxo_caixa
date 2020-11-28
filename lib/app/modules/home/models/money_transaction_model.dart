@@ -6,38 +6,38 @@ class MoneyTransactionModel {
 
   AuthController auth = Modular.get();
 
-  String userName;
+  String userUid;
   String value;
   DocumentReference reference;
 
   MoneyTransactionModel({
-    this.userName = '',
+    this.userUid = '',
     this.value = '',
     this.reference
   });
 
   factory MoneyTransactionModel.fromDocument(DocumentSnapshot doc) {
     return MoneyTransactionModel(
-      userName: doc['userName'],
+      userUid: doc['userUid'],
       value: doc['value'],
       reference: doc.reference
     );
   }
 
   Future save() async {
-    userName = auth.user.email;
+    userUid = auth.user.uid;
 
     if (reference == null) {
       reference = await FirebaseFirestore.instance
         .collection('money_transaction')
         .add({
-          'userName': userName,
+          'userUid': userUid,
           'value': value,
         });
     }
     else {
       reference.update({
-        'userName': userName,
+        'userUid': userUid,
         'value': value,
       });
     }

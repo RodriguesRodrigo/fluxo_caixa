@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/money_transaction_model.dart';
 import 'package:fluxo_caixa/app/modules/home/repositories/firestore_repository_interface.dart';
+import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 
 class FirestoreRepository implements IFirestoreRepository {
 
@@ -10,9 +11,9 @@ class FirestoreRepository implements IFirestoreRepository {
   FirestoreRepository(this.firestore);
 
   @override
-  Stream<List<CashFlowModel>> getCashFlow(String userName) {
+  Stream<List<CashFlowModel>> getCashFlow(AuthController auth) {
     return firestore.collection('cash_flux')
-      .where('userName', isEqualTo: userName)
+      .where('userUid', isEqualTo: auth.user.uid)
       .orderBy('paymentDate', descending: true)
       .snapshots().map((query) {
       return query.docs.map((doc) {
@@ -22,9 +23,9 @@ class FirestoreRepository implements IFirestoreRepository {
   }
 
   @override
-  Stream<List<MoneyTransactionModel>> getMoney(String username) {
+  Stream<List<MoneyTransactionModel>> getMoney(AuthController auth) {
     return firestore.collection('money_transaction')
-      .where('userName', isEqualTo: username)
+      .where('userUid', isEqualTo: auth.user.uid)
       .snapshots().map((query) {
       return query.docs.map((doc) {
         return MoneyTransactionModel.fromDocument(doc);

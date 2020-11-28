@@ -26,8 +26,9 @@ abstract class _HomeControllerBase with Store {
 
   @action
   getList() {
-    cashFlowList = firestoreRepository.getCashFlow(auth.user.email).asObservable();
-    moneyTransactionList = firestoreRepository.getMoney(auth.user.email).asObservable();
+    print(auth.user.uid);
+    cashFlowList = firestoreRepository.getCashFlow(auth).asObservable();
+    moneyTransactionList = firestoreRepository.getMoney(auth).asObservable();
   }
 
   @action

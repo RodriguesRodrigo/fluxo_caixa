@@ -8,7 +8,7 @@ class CashFlowModel {
   AuthController auth = Modular.get();
   FirebaseFirestore instanceMoney = FirebaseFirestore.instance;
 
-  String userName;
+  String userUid;
   String description;
   String observation;
   String type;
@@ -20,7 +20,7 @@ class CashFlowModel {
   DocumentReference reference;
 
   CashFlowModel({
-    this.userName = '',
+    this.userUid = '',
     this.description = '',
     this.observation = '',
     this.type = 'Entrada',
@@ -34,7 +34,7 @@ class CashFlowModel {
 
   factory CashFlowModel.fromDocument(DocumentSnapshot doc) {
     return CashFlowModel(
-      userName: doc['userName'],
+      userUid: doc['userUid'],
       description: doc['description'],
       observation: doc['observation'],
       type: doc['type'],
@@ -48,7 +48,7 @@ class CashFlowModel {
   }
 
   Future save() async {
-    userName = auth.user.email;
+    userUid = auth.user.uid;
 
     if (reference == null) {
       createdAt = new Timestamp.now() ?? createdAt == null;
@@ -64,7 +64,7 @@ class CashFlowModel {
           'paymentType': paymentType,
           'createdAt': createdAt,
           'paymentDate': paymentDate,
-          'userName': userName,
+          'userUid': userUid,
         });
     }
     else {
@@ -77,7 +77,7 @@ class CashFlowModel {
         'paymentType': paymentType,
         'createdAt': createdAt,
         'paymentDate': paymentDate,
-        'userName': userName,
+        'userUid': userUid,
       });
     }
   }
