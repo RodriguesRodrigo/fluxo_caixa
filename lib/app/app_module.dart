@@ -1,4 +1,5 @@
 import 'package:fluxo_caixa/app/modules/create_user/create_user_module.dart';
+import 'package:fluxo_caixa/app/modules/home/views/create_money/create_money_page.dart';
 import 'package:fluxo_caixa/app/modules/home/views/detail_flux/detail_flux_page.dart';
 import 'package:fluxo_caixa/app/modules/home/views/create_flux/create_flux_page.dart';
 import 'package:fluxo_caixa/app/modules/login/login_module.dart';
@@ -38,6 +39,7 @@ class AppModule extends MainModule {
         ModularRouter('/home', module: HomeModule()),
         ModularRouter('/createFlux', child: (_, args) => CreateFluxPage()),
         ModularRouter('/detailFlux', child: (_, args) => DetailFluxPage()),
+        ModularRouter('/createMoney', child: (_, args) => CreateMoneyPage()),
       ];
 
   @override
