@@ -146,7 +146,7 @@ class _CreateMoneyPageState extends State<CreateMoneyPage> {
               'Campo obrigatório não pode ser vazio.' :
               null,
             onChanged: (value) {
-              var valueReplaced = value.replaceAll(new RegExp('[,.]'), '');
+              var valueReplaced = value.replaceAll(new RegExp(r'[a-zA-Z]|\D'), '');
               _model.value = valueReplaced.toString();
             },
           ),
