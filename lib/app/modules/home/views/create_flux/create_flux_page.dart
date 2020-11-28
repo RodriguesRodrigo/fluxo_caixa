@@ -348,13 +348,33 @@ class _CreateFluxPageState extends ModularState<CreateFluxPage, HomeController> 
     final FormState form = _formKey.currentState;
 
     if (form.validate()) {
-      print('está certo');
       controller.createCashFlow(model, args.moneyModel);
       Modular.to.pushReplacementNamed('/home');
     }
     else {
-      print('está errado');
+      _showDialog(
+        'Ops',
+        'Por favor, preencha todos os campos da forma correta para continuar.'
+      );
     }
+  }
+
+  _showDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Modular.to.pop(),
+              child: Text('Fechar'),
+            ),
+          ],
+        );
+      }
+    );
   }
 
 }
