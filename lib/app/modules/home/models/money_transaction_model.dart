@@ -25,7 +25,7 @@ class MoneyTransactionModel {
   }
 
   Future save() async {
-    userUid = auth.user.uid;
+    userUid = auth.user.uid.toString();
 
     if (reference == null) {
       reference = await FirebaseFirestore.instance
