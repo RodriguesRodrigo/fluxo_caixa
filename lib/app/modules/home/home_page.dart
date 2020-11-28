@@ -79,6 +79,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         }
 
         if (controller.moneyTransactionList.hasError) {
+          // TODO:
+          // show to user a warning to remove the death red screen!
           print(controller.moneyTransactionList.error);
         }
 
@@ -146,6 +148,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           return Center(
             child: CircularProgressIndicator(),
           );
+        }
+
+        if (controller.moneyTransactionList.hasError) {
+          // TODO:
+          // show to user a warning to remove the death red screen!
+          print(controller.moneyTransactionList.error);
         }
 
         List<CashFlowModel> list = controller.cashFlowList.data;
