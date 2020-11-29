@@ -139,6 +139,9 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
   }
 
   _section(CashFlowModel model) {
+    // 80% of screen width
+    double col8 = MediaQuery.of(context).size.width*0.8;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(18.0),
@@ -331,12 +334,15 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      model.observation.isNotEmpty ?
-                        model.observation :
-                        'Adicione uma observação',
-                      style: TextStyle(
-                        fontSize: 20.0,
+                    Container(
+                      width: col8,
+                      child: Text(
+                        model.observation.isNotEmpty ?
+                          model.observation :
+                          'Adicione uma observação',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
                     Container(
