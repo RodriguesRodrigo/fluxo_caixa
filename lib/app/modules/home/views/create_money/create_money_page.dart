@@ -34,11 +34,11 @@ class _CreateMoneyPageState extends State<CreateMoneyPage> {
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 80.0),
+              Padding(padding: EdgeInsets.only(top: 40.0)),
               _title(),
-              SizedBox(height: 80.0),
+              Padding(padding: EdgeInsets.only(top: 40.0)),
               _textFormFieldEmail(),
             ],
           ),
@@ -47,7 +47,7 @@ class _CreateMoneyPageState extends State<CreateMoneyPage> {
       bottomNavigationBar: Container(
         padding: EdgeInsets.only(
           right: 16.0,
-          bottom: 80.0,
+          bottom: 40.0,
           left: 16.0,
         ),
         height: 120.0,
