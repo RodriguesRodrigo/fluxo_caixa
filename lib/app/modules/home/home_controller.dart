@@ -12,8 +12,6 @@ class HomeController = _HomeControllerBase with _$HomeController;
 abstract class _HomeControllerBase with Store {
   final IFirestoreRepository firestoreRepository;
 
-  AuthController auth = Modular.get();
-
   @observable
   ObservableStream<List<CashFlowModel>> cashFlowList;
  
@@ -26,8 +24,8 @@ abstract class _HomeControllerBase with Store {
 
   @action
   getList() {
-    cashFlowList = firestoreRepository.getCashFlow(auth).asObservable();
-    moneyTransactionList = firestoreRepository.getMoney(auth).asObservable();
+    cashFlowList = firestoreRepository.getCashFlow(Modular.get<AuthController>()).asObservable();
+    moneyTransactionList = firestoreRepository.getMoney(Modular.get<AuthController>()).asObservable();
   }
 
   @action

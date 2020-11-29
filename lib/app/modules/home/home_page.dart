@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/money_transaction_model.dart';
 import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
+import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 import 'home_controller.dart';
 import 'package:money2/money2.dart';
 
@@ -24,7 +25,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.auth.user.email),
+        title: Text(Modular.get<AuthController>().user.email),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),

@@ -3,9 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 
 class MoneyTransactionModel {
-
-  AuthController auth = Modular.get();
-
   String userUid;
   String value;
   DocumentReference reference;
@@ -25,7 +22,7 @@ class MoneyTransactionModel {
   }
 
   Future save() async {
-    userUid = auth.user.uid.toString();
+    userUid = Modular.get<AuthController>().user.uid.toString();
 
     if (reference == null) {
       reference = await FirebaseFirestore.instance

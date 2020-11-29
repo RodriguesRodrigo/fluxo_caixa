@@ -5,7 +5,6 @@ import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 
 class CashFlowModel {
 
-  AuthController auth = Modular.get();
   FirebaseFirestore instanceMoney = FirebaseFirestore.instance;
 
   String userUid;
@@ -48,7 +47,7 @@ class CashFlowModel {
   }
 
   Future save() async {
-    userUid = auth.user.uid;
+    userUid = Modular.get<AuthController>().user.uid.toString();
 
     if (reference == null) {
       createdAt = new Timestamp.now() ?? createdAt == null;
