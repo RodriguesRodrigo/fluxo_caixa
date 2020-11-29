@@ -42,15 +42,6 @@ mixin _$LoginController on _LoginControllerBase, Store {
     return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
   }
 
-  final _$loginWithFirebaseAsyncAction =
-      AsyncAction('_LoginControllerBase.loginWithFirebase');
-
-  @override
-  Future<dynamic> loginWithFirebase(dynamic email, dynamic password) {
-    return _$loginWithFirebaseAsyncAction
-        .run(() => super.loginWithFirebase(email, password));
-  }
-
   @override
   String toString() {
     return '''

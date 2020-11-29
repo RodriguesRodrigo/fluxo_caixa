@@ -255,7 +255,7 @@ class _CreateUserPageState
           );
         }
         else {
-          Modular.to.pushReplacementNamed('/login');
+          controller.loginWithFirebase(model.email, model.password);
         }
       });
     }

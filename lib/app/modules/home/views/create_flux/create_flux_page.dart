@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluxo_caixa/app/modules/home/home_controller.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
+import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class CreateFluxPage extends StatefulWidget {
   final String title;
@@ -10,8 +13,14 @@ class CreateFluxPage extends StatefulWidget {
   _CreateFluxPageState createState() => _CreateFluxPageState();
 }
 
-class _CreateFluxPageState extends State<CreateFluxPage> {
+class _CreateFluxPageState extends ModularState<CreateFluxPage, HomeController> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  MoneyMaskedTextController moneyController = MoneyMaskedTextController(
+    decimalSeparator: ',',
+    thousandSeparator: '.',
+  );
+
   CashFlowModel model = CashFlowModel();
 
   String paymentTypeInitial = 'Credito';
@@ -20,8 +29,12 @@ class _CreateFluxPageState extends State<CreateFluxPage> {
   String typeInitial = 'Entrada';
   List<String> typeChoices = ['Entrada', 'Saída'];
 
+  ScreenArguments args;
+
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -117,6 +130,7 @@ class _CreateFluxPageState extends State<CreateFluxPage> {
                     fontSize: 20.0,
                     color: Colors.black,
                   ),
+                  controller: moneyController,
                   decoration: InputDecoration(
                     labelText: 'Valor da receita',
                     hintText: r'R$ 00,00',
@@ -127,7 +141,10 @@ class _CreateFluxPageState extends State<CreateFluxPage> {
                       bottom: 14.0,
                     ),
                   ),
-                  onChanged: (value) => model.value = value,
+                  onChanged: (value) {
+                    var valueReplaced = value.replaceAll(new RegExp('[,.]'), '');
+                    model.value = valueReplaced.toString();
+                  },
                   validator: (value) => value.isEmpty ?
                     'Campo obrigatório não pode ser vazio.' :
                     null,
@@ -331,13 +348,33 @@ class _CreateFluxPageState extends State<CreateFluxPage> {
     final FormState form = _formKey.currentState;
 
     if (form.validate()) {
-      print('está certo');
-      model.save();
+      controller.createCashFlow(model, args.moneyModel);
       Modular.to.pushReplacementNamed('/home');
     }
     else {
-      print('está errado');
+      _showDialog(
+        'Ops',
+        'Por favor, preencha todos os campos da forma correta para continuar.'
+      );
     }
+  }
+
+  _showDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Modular.to.pop(),
+              child: Text('Fechar'),
+            ),
+          ],
+        );
+      }
+    );
   }
 
 }

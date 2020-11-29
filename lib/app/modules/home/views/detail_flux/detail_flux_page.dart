@@ -3,6 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluxo_caixa/app/modules/home/home_controller.dart';
 import 'package:fluxo_caixa/app/modules/home/models/cash_flow_model.dart';
+import 'package:fluxo_caixa/app/modules/home/models/screen_arguments.dart';
+import 'package:money2/money2.dart';
 
 class DetailFluxPage extends StatefulWidget {
   final String title;
@@ -18,18 +20,13 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
 
   bool showCircularProgress = false;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (controller.cashFlowList.data == null) {
-      showCircularProgress = true;
-    }
-  }
+  ScreenArguments args;
+
+  final brl = Currency.create('BRL', 2, symbol: r'R$', invertSeparators: true);
 
   @override
   Widget build(BuildContext context) {
-    int index = ModalRoute.of(context).settings.arguments;
+    args = ModalRoute.of(context).settings.arguments;
 
     return Observer(
       builder: (_) {
@@ -39,7 +36,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
           );
         }
 
-        CashFlowModel model = controller.cashFlowList.data[index];
+        CashFlowModel model = controller.cashFlowList.data[args.index];
 
         return Scaffold(
           appBar: AppBar(
@@ -62,8 +59,8 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
                   Icons.delete_forever,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  model.delete();
+                onPressed: () async {
+                  await controller.deleteCashFlow(model, args.moneyModel);
                   Modular.to.pushReplacementNamed('/home');
                 },
               ),
@@ -87,6 +84,9 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
   }
 
   _header(CashFlowModel model) {
+    var costPrice = Money.fromInt(int.parse(model.value), brl);
+    var money = costPrice.format('S #.###,##');
+
     return Container(
       width: double.infinity,
       height: 120,
@@ -104,15 +104,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                r'R$',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 38.0,
-                ),
-              ),
-              Padding(padding: EdgeInsets.only(right: 8.0)),
-              Text(
-                model.value,
+                money.toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 38.0,
@@ -147,6 +139,9 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
   }
 
   _section(CashFlowModel model) {
+    // 80% of screen width
+    double col8 = MediaQuery.of(context).size.width*0.8;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(18.0),
@@ -339,12 +334,15 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      model.observation.isNotEmpty ?
-                        model.observation :
-                        'Adicione uma observação',
-                      style: TextStyle(
-                        fontSize: 20.0,
+                    Container(
+                      width: col8,
+                      child: Text(
+                        model.observation.isNotEmpty ?
+                          model.observation :
+                          'Adicione uma observação',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
                     Container(
@@ -394,7 +392,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -426,7 +424,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -477,7 +475,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -509,7 +507,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),
@@ -543,7 +541,7 @@ class _DetailFluxPageState extends ModularState<DetailFluxPage, HomeController> 
             ),
             FlatButton(
               onPressed: () async {
-                await model.save();
+                await controller.updateCashFlow(model, args.moneyModel);
                 Modular.to.pop();
               },
               child: Text('Salvar'),

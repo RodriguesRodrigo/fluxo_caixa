@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluxo_caixa/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -24,20 +23,6 @@ abstract class _LoginControllerBase with Store {
     }
     catch (e) {
       loading = false;
-    }
-  }
-
-  @action
-  Future loginWithFirebase(email, password) async {
-    try {
-      await auth.loginEmailPassword(email, password);
-      Modular.to.pushReplacementNamed('/home');
-    }
-    on FirebaseAuthException catch(e) {
-      print(e.code);
-    }
-    catch(e) {
-      print(e.code); 
     }
   }
 }
