@@ -79,6 +79,28 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           );
         }
 
+        if (controller.moneyTransactionList.data.isEmpty) {
+          return Container(
+            width: double.infinity,
+            height: 160,
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(8.0)),
+              color: Colors.blue[600],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text('Cadastre seu saldo para começar.'),
+                  onPressed: () => Modular.to.pushReplacementNamed('/createMoney'),
+                ),
+              ],
+            ),
+          );
+        }
+
         if (controller.moneyTransactionList.hasError) {
           // TODO:
           // show to user a warning to remove the death red screen!
